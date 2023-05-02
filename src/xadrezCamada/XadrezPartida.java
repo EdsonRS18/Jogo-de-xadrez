@@ -16,10 +16,10 @@ public class XadrezPartida {
     }
 
     public XadrezPeca[][] getPecas(){
-        XadrezPeca[][] mat = new XadrezPeca[tabuleiro.getLinha()][tabuleiro.getColuna()];
+        XadrezPeca[][] mat = new XadrezPeca[tabuleiro.getLinhas()][tabuleiro.getColunas()];
 
-        for(int i=0; i< tabuleiro.getLinha(); i++){
-            for(int j=0; j<tabuleiro.getColuna(); j++){
+        for(int i=0; i< tabuleiro.getLinhas(); i++){
+            for(int j=0; j<tabuleiro.getColunas(); j++){
                 mat[i][j] = (XadrezPeca) tabuleiro.peca(i,j);
             }
         }
