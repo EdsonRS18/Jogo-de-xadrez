@@ -1,6 +1,9 @@
 package xadrezCamada;
 
+import tabuleiroCamada.Posicao;
 import tabuleiroCamada.Tabuleiro;
+import xadrezPeca.Rei;
+import xadrezPeca.Torre;
 
 //coração do jogo, aqui ficara as regras
 public class XadrezPartida {
@@ -9,7 +12,7 @@ public class XadrezPartida {
     
     public XadrezPartida(){
         tabuleiro = new Tabuleiro(8, 8);//aqui é onde informo as dimensoes do tabuleiro
-
+        setupInicial();
     }
 
     public XadrezPeca[][] getPecas(){
@@ -21,5 +24,11 @@ public class XadrezPartida {
             }
         }
         return mat;
+    }
+
+    private void setupInicial(){
+       tabuleiro.localPeca(new Torre(tabuleiro, Color.WHITE), new Posicao(0, 0));
+       tabuleiro.localPeca(new Rei(tabuleiro, Color.WHITE), new Posicao(0, 4));
+       tabuleiro.localPeca(new Rei(tabuleiro, Color.BLACK), new Posicao(7, 4));
     }
 }

@@ -40,6 +40,11 @@ public class Tabuleiro {
         return pecas[posicao.getLinha()][posicao.getColuna()];
     }
 
+    public void localPeca(Peca peca, Posicao posicao){
+        pecas[posicao.getLinha()][posicao.getColuna()] = peca; //nessa posicao fica a peca
+        peca.posicao = posicao;
+    }
+
 
     
     
