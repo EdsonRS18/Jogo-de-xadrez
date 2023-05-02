@@ -1,13 +1,16 @@
-package tabuleiroJogo;
+package tabuleiroCamada;
 
-public class Posicao {
+public class Tabuleiro {
+
     private int linha;
     private int coluna;
+    private Peca[][] pecas;
 
-    
-    public Posicao(int linha, int coluna) {
+
+    public Tabuleiro(int linha, int coluna) {
         this.linha = linha;
         this.coluna = coluna;
+        pecas = new Peca[linha][coluna];
     }
 
 
@@ -15,25 +18,33 @@ public class Posicao {
         return linha;
     }
 
-
     public void setLinha(int linha) {
         this.linha = linha;
     }
-
 
     public int getColuna() {
         return coluna;
     }
 
-
     public void setColuna(int coluna) {
         this.coluna = coluna;
     }
 
-    @Override
-    public String toString(){
-        return linha + "," + coluna;
+
+    public Peca peca(int linha, int coluna){
+        return pecas[linha][coluna];
+        
     }
+
+    public Peca peca(Posicao posicao){
+        return pecas[posicao.getLinha()][posicao.getColuna()];
+    }
+
+
+    
+    
     
 
+
+    
 }
