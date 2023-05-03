@@ -1,5 +1,7 @@
 package xadrezCamada;
 
+import tabuleiroCamada.Peca;
+import tabuleiroCamada.Posicao;
 import tabuleiroCamada.Tabuleiro;
 import xadrezPeca.Rei;
 import xadrezPeca.Torre;
@@ -24,6 +26,29 @@ public class XadrezPartida {
         }
         return mat;
     }
+
+    public XadrezPeca performXadrezMove(XadrezPosicao posicaoOrigem, XadrezPosicao posicaoAlvo ){
+        Posicao origem = posicaoOrigem.toPosicao();
+        Posicao alvo = posicaoAlvo.toPosicao();
+        validarPosicaoOrigem(origem);
+        Peca pecaCapturada  = makeMove(origem, alvo);
+        return (XadrezPeca)pecaCapturada ;
+    }
+
+    private Peca makeMove(Posicao origem, Posicao alvo){
+        Peca p = tabuleiro.removePeca(origem);
+        Peca pecaCapturada  = tabuleiro.removePeca(alvo);
+        tabuleiro.localPeca(p, alvo);
+        return pecaCapturada ;
+    }
+
+        private void validarPosicaoOrigem(Posicao posicao){
+            if(!tabuleiro.temUmaPeca(posicao)){
+                throw new XadrezException("nao existe peça na origem");
+            }
+        }
+
+    
     //recebe as coordenadas do xadrez e converte para matriz
     
     private void lugarNovaPeca(char coluna, int linha, XadrezPeca peca){
