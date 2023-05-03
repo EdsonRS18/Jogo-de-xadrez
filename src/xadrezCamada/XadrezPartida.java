@@ -1,6 +1,5 @@
 package xadrezCamada;
 
-import tabuleiroCamada.Posicao;
 import tabuleiroCamada.Tabuleiro;
 import xadrezPeca.Rei;
 import xadrezPeca.Torre;
@@ -25,10 +24,15 @@ public class XadrezPartida {
         }
         return mat;
     }
-
+    //recebe as coordenadas do xadrez e converte para matriz
+    
+    private void lugarNovaPeca(char coluna, int linha, XadrezPeca peca){
+        tabuleiro.localPeca(peca, new XadrezPosicao(coluna, linha).toPosicao());
+    }
+    //agora posso instanciar as peças ja em posicoes de xadrez chamando a funcao lugarNovaPeca
     private void setupInicial(){
-       tabuleiro.localPeca(new Torre(tabuleiro, Color.WHITE), new Posicao(0, 0));
-       tabuleiro.localPeca(new Rei(tabuleiro, Color.WHITE), new Posicao(0, 4));
-       tabuleiro.localPeca(new Rei(tabuleiro, Color.BLACK), new Posicao(7, 4));
+       lugarNovaPeca('a', 8, new Torre(tabuleiro, Color.WHITE));
+       lugarNovaPeca('e', 8, new Rei(tabuleiro, Color.WHITE));
+       lugarNovaPeca('e', 1, new Rei(tabuleiro, Color.BLACK));
     }
 }
