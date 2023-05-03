@@ -31,8 +31,18 @@ public class XadrezPartida {
     }
     //agora posso instanciar as peças ja em posicoes de xadrez chamando a funcao lugarNovaPeca
     private void setupInicial(){
-       lugarNovaPeca('a', 8, new Torre(tabuleiro, Color.WHITE));
-       lugarNovaPeca('e', 8, new Rei(tabuleiro, Color.WHITE));
-       lugarNovaPeca('e', 1, new Rei(tabuleiro, Color.BLACK));
+        lugarNovaPeca('c', 1, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('c', 2, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('d', 2, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('e', 2, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('e', 1, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('d', 1, new Rei(tabuleiro, Color.WHITE));
+
+        lugarNovaPeca('c', 7, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('c', 8, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('d', 7, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('e', 7, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('e', 8, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('d', 8, new Rei(tabuleiro, Color.BLACK));
     }
 }
