@@ -3,7 +3,9 @@ package application;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import tabuleiroCamada.Peca;
 import xadrezCamada.Color;
+import xadrezCamada.XadrezPartida;
 import xadrezCamada.XadrezPeca;
 import xadrezCamada.XadrezPosicao;
 
@@ -44,10 +46,15 @@ public class UI {
             int linha = Integer.parseInt(s.substring(1));
             return new XadrezPosicao(coluna, linha);
         } catch (RuntimeException e) {
-            throw new InputMismatchException("erro na leitura da posicao, entradas validas de a1 ate h8");
-            
+            throw new InputMismatchException("erro na leitura da posicao, entradas validas de a1 ate h8");  
         }
-        
+    }
+
+    public static void printPartida(XadrezPartida xadrezPartida){
+        printTabuleiro(xadrezPartida.getPecas());
+        System.err.println();
+        System.out.println("turno: " + xadrezPartida.getTurno());
+        System.err.println("esperando jogador: " + xadrezPartida.getJogador());
 
     }
 
