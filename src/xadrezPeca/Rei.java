@@ -15,5 +15,11 @@ public class Rei extends XadrezPeca{
         return "R";
     }
 
+    @Override
+    public boolean[][] possivelMovimento() {
+        boolean[][] mat = new boolean[getTabuleiro().getLinhas()][getTabuleiro().getColunas()];
+        return mat;
+    }
+
     
 }

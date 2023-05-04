@@ -31,6 +31,7 @@ public class XadrezPartida {
         Posicao origem = posicaoOrigem.toPosicao();
         Posicao alvo = posicaoAlvo.toPosicao();
         validarPosicaoOrigem(origem);
+        validarPosicaoAlvo(origem,alvo);
         Peca pecaCapturada  = makeMove(origem, alvo);
         return (XadrezPeca)pecaCapturada ;
     }
@@ -42,12 +43,22 @@ public class XadrezPartida {
         return pecaCapturada ;
     }
 
-        private void validarPosicaoOrigem(Posicao posicao){
-            if(!tabuleiro.temUmaPeca(posicao)){
-                throw new XadrezException("nao existe peça na origem");
-            }
+    private void validarPosicaoOrigem(Posicao posicao){
+        if(!tabuleiro.temUmaPeca(posicao)){
+            throw new XadrezException("nao existe peça na origem");
         }
+        if(!tabuleiro.peca(posicao).algumMovimento()){
+            throw new XadrezException("nao existe movimento possivel");
+        }
+    }
 
+    private void validarPosicaoAlvo(Posicao origem, Posicao alvo){
+        if (!tabuleiro.peca(origem).possivelMovimento(alvo)){
+            throw new XadrezException("A peça escolhida nao pode se mover para esse local");
+        }
+    }
+
+        
     
     //recebe as coordenadas do xadrez e converte para matriz
     
