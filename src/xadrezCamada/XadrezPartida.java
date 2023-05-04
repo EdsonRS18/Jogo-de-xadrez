@@ -1,5 +1,8 @@
 package xadrezCamada;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tabuleiroCamada.Peca;
 import tabuleiroCamada.Posicao;
 import tabuleiroCamada.Tabuleiro;
@@ -12,6 +15,9 @@ public class XadrezPartida {
     private Tabuleiro tabuleiro;
     private int turno;
     private Color jogador;
+
+    private List<Peca> pecasNoTabuleiro = new ArrayList<>();
+    private List<Peca> pecasCapturadas = new ArrayList<>();
 
     
     public XadrezPartida(){
@@ -64,6 +70,11 @@ public class XadrezPartida {
         Peca p = tabuleiro.removePeca(origem);
         Peca pecaCapturada  = tabuleiro.removePeca(alvo);
         tabuleiro.localPeca(p, alvo);
+
+        if (pecaCapturada != null){
+            pecasNoTabuleiro.remove(pecaCapturada);
+            pecasCapturadas.add(pecaCapturada);
+        }
         return pecaCapturada ;
     }
 
@@ -96,6 +107,8 @@ public class XadrezPartida {
     
     private void lugarNovaPeca(char coluna, int linha, XadrezPeca peca){
         tabuleiro.localPeca(peca, new XadrezPosicao(coluna, linha).toPosicao());
+
+        pecasNoTabuleiro.add(peca);
     }
     //agora posso instanciar as peças ja em posicoes de xadrez chamando a funcao lugarNovaPeca
     private void setupInicial(){
