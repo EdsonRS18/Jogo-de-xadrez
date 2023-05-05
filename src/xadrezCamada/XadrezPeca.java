@@ -7,6 +7,7 @@ import tabuleiroCamada.Tabuleiro;
 public abstract class XadrezPeca extends Peca{
 
     private Color color;
+    private int moveCount;
 
     public XadrezPeca(Tabuleiro tabuleiro, Color color) {
         super(tabuleiro);
@@ -15,6 +16,18 @@ public abstract class XadrezPeca extends Peca{
 
     public Color getColor() {
         return color;
+    }
+
+    public int getMoveCount(){
+        return moveCount;
+    }
+
+    public void incrementarCount(){
+        moveCount++;
+    }
+
+    public void decrementarCount(){
+        moveCount--;
     }
 
     public XadrezPosicao getXadrezPosicao(){

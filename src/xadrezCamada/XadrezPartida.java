@@ -91,7 +91,8 @@ public class XadrezPartida {
     }
 
     private Peca makeMove(Posicao origem, Posicao alvo){
-        Peca p = tabuleiro.removePeca(origem);
+        XadrezPeca p = (XadrezPeca)tabuleiro.removePeca(origem);
+        p.incrementarCount();
         Peca pecaCapturada  = tabuleiro.removePeca(alvo);
         tabuleiro.localPeca(p, alvo);
 
@@ -103,7 +104,8 @@ public class XadrezPartida {
     }
     //refazer jogada
     private void undoMove(Posicao origem, Posicao alvo, Peca pecaCapturada) {
-		Peca p = tabuleiro.removePeca(alvo);
+		XadrezPeca p = (XadrezPeca)tabuleiro.removePeca(alvo);
+        p.decrementarCount();
 		tabuleiro.localPeca(p, origem);
 
 		if (pecaCapturada != null) {
