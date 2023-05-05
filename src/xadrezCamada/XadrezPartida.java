@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import tabuleiroCamada.Peca;
 import tabuleiroCamada.Posicao;
 import tabuleiroCamada.Tabuleiro;
+import xadrezPeca.Peao;
 import xadrezPeca.Rei;
 import xadrezPeca.Torre;
 
@@ -200,12 +201,29 @@ public class XadrezPartida {
     }
     //agora posso instanciar as peças ja em posicoes de xadrez chamando a funcao lugarNovaPeca
     private void setupInicial(){
-        lugarNovaPeca('h', 7, new Torre(tabuleiro, Color.WHITE));
-        lugarNovaPeca('d', 1, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('a', 1, new Torre(tabuleiro, Color.WHITE));
         lugarNovaPeca('e', 1, new Rei(tabuleiro, Color.WHITE));
+        lugarNovaPeca('h', 1, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('a', 2, new Peao(tabuleiro, Color.WHITE));
+        lugarNovaPeca('b', 2, new Peao(tabuleiro, Color.WHITE));
+        lugarNovaPeca('c', 2, new Peao(tabuleiro, Color.WHITE));
+        lugarNovaPeca('d', 2, new Peao(tabuleiro, Color.WHITE));
+        lugarNovaPeca('e', 2, new Peao(tabuleiro, Color.WHITE));
+        lugarNovaPeca('f', 2, new Peao(tabuleiro, Color.WHITE));
+        lugarNovaPeca('g', 2, new Peao(tabuleiro, Color.WHITE));
+        lugarNovaPeca('h', 2, new Peao(tabuleiro, Color.WHITE));
 
-        lugarNovaPeca('b', 8, new Torre(tabuleiro, Color.BLACK));
-        lugarNovaPeca('a', 8, new Rei(tabuleiro, Color.BLACK));
+        lugarNovaPeca('a', 8, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('e', 8, new Rei(tabuleiro, Color.BLACK));
+        lugarNovaPeca('h', 8, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('a', 7, new Peao(tabuleiro, Color.BLACK));
+        lugarNovaPeca('b', 7, new Peao(tabuleiro, Color.BLACK));
+        lugarNovaPeca('c', 7, new Peao(tabuleiro, Color.BLACK));
+        lugarNovaPeca('d', 7, new Peao(tabuleiro, Color.BLACK));
+        lugarNovaPeca('e', 7, new Peao(tabuleiro, Color.BLACK));
+        lugarNovaPeca('f', 7, new Peao(tabuleiro, Color.BLACK));
+        lugarNovaPeca('g', 7, new Peao(tabuleiro, Color.BLACK));
+        lugarNovaPeca('h', 7, new Peao(tabuleiro, Color.BLACK));
     }
     
 }
