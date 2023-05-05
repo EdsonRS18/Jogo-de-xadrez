@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import tabuleiroCamada.Peca;
 import xadrezCamada.Color;
 import xadrezCamada.XadrezPartida;
 import xadrezCamada.XadrezPeca;
