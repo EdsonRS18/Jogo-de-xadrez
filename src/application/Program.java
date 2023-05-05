@@ -17,7 +17,7 @@ public class Program {
         XadrezPartida xadrezPartida = new XadrezPartida();
         List<XadrezPeca> capturadas = new ArrayList<>(); 
 
-        while(true){
+        while(!xadrezPartida.getCheckMate()){
             try{
                 UI.clearScreen();
                 UI.printPartida(xadrezPartida, capturadas);
@@ -32,7 +32,7 @@ public class Program {
                 XadrezPosicao alvo = UI.lerXadrezPosicao(sc);
 
                 XadrezPeca pecaCapturada = xadrezPartida.performXadrezMove(origem, alvo);
-                if (capturadas != null){
+                if (pecaCapturada    != null){
                     capturadas.add(pecaCapturada);
                 }
                 
@@ -45,7 +45,8 @@ public class Program {
                 sc.nextLine();
             }
         }
-        
+        UI.clearScreen();
+		UI.printPartida(xadrezPartida, capturadas);
     }
     
 }

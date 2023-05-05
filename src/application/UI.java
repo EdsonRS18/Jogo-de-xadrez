@@ -59,10 +59,19 @@ public class UI {
         printPecasCapturadas(capturada);
         System.out.println();
         System.out.println("turno: " + xadrezPartida.getTurno());
-        System.out.println("esperando jogador: " + xadrezPartida.getJogador());
-
+        if (!xadrezPartida.getCheckMate()) {
+			System.out.println("Esperando jogador: " + xadrezPartida.getJogador());
+			if (xadrezPartida.getCheck()) {
+				System.out.println("CHECK!");
+			}
+		}
+		else {
+			System.out.println("CHECKMATE!");
+			System.out.println("Winner: " + xadrezPartida.getJogador());
+	    }
     }
 
+    
     //metodo que cria a matriz
     public static void printTabuleiro(XadrezPeca[][] pecas){
         for(int i=0; i<pecas.length; i++){

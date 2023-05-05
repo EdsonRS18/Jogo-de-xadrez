@@ -2,6 +2,7 @@ package xadrezCamada;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import tabuleiroCamada.Peca;
 import tabuleiroCamada.Posicao;
@@ -15,6 +16,8 @@ public class XadrezPartida {
     private Tabuleiro tabuleiro;
     private int turno;
     private Color jogador;
+    private boolean check;
+    private boolean checkMate;
 
     private List<Peca> pecasNoTabuleiro = new ArrayList<>();
     private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -24,6 +27,8 @@ public class XadrezPartida {
         tabuleiro = new Tabuleiro(8, 8);//aqui é onde informo as dimensoes do tabuleiro
         turno = 1;
         jogador = Color.WHITE;
+        check = false;
+        checkMate = false;
         setupInicial();
     }
 
@@ -37,6 +42,12 @@ public class XadrezPartida {
     public Color getJogador() {
         return jogador;
     }
+    public boolean getCheck() {
+		return check;
+	}
+    public boolean getCheckMate() {
+		return checkMate;
+	}
 
 
     public XadrezPeca[][] getPecas(){
@@ -62,7 +73,20 @@ public class XadrezPartida {
         validarPosicaoOrigem(origem);
         validarPosicaoAlvo(origem,alvo);
         Peca pecaCapturada  = makeMove(origem, alvo);
-        nextTurno();
+
+        if (testCheck(jogador)) {
+			undoMove(origem, alvo, pecaCapturada);
+			throw new XadrezException("Voce n pode se colocar em check");
+		}
+		check = (testCheck(Oponente(jogador))) ? true : false;
+
+        if (testCheckMate(Oponente(jogador))) {
+			checkMate = true;
+		}
+		else {
+			nextTurno();
+		}
+        
         return (XadrezPeca)pecaCapturada ;
     }
 
@@ -77,6 +101,17 @@ public class XadrezPartida {
         }
         return pecaCapturada ;
     }
+    //refazer jogada
+    private void undoMove(Posicao origem, Posicao alvo, Peca pecaCapturada) {
+		Peca p = tabuleiro.removePeca(alvo);
+		tabuleiro.localPeca(p, origem);
+
+		if (pecaCapturada != null) {
+			tabuleiro.localPeca(pecaCapturada, alvo);
+			pecasCapturadas.remove(pecaCapturada);
+			pecasNoTabuleiro.add(pecaCapturada);
+		}
+	}
 
     private void validarPosicaoOrigem(Posicao posicao){
         if(!tabuleiro.temUmaPeca(posicao)){
@@ -101,6 +136,57 @@ public class XadrezPartida {
         jogador = (jogador == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
 
+    private Color Oponente(Color color) {
+		return (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
+	}
+
+    private XadrezPeca rei(Color color) {
+		List<Peca> list = pecasNoTabuleiro.stream().filter(x -> ((XadrezPeca)x).getColor() == color).collect(Collectors.toList());
+		for (Peca p : list) {
+			if (p instanceof Rei) {
+				return (XadrezPeca)p;
+			}
+		}
+		throw new IllegalStateException("nao existe rei da cor " + color + " no tabuleiro");
+	}
+
+    private boolean testCheck(Color color) {
+		Posicao PosicaoRei = rei(color).getXadrezPosicao().toPosicao();
+		List<Peca> pecasOponente = pecasNoTabuleiro.stream().filter(x -> ((XadrezPeca)x).getColor() == Oponente(color)).collect(Collectors.toList());
+		for (Peca p : pecasOponente) {
+			boolean[][] mat = p.possivelMovimento();
+			if (mat[PosicaoRei.getLinha()][PosicaoRei.getColuna()]) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+    private boolean testCheckMate(Color color) {
+		if (!testCheck(color)) {
+			return false;
+		}
+		List<Peca> list = pecasNoTabuleiro.stream().filter(x -> ((XadrezPeca)x).getColor() == color).collect(Collectors.toList());
+		for (Peca p : list) {
+			boolean[][] mat = p.possivelMovimento();
+			for (int i=0; i<tabuleiro.getLinhas(); i++) {
+				for (int j=0; j<tabuleiro.getColunas(); j++) {
+					if (mat[i][j]) {
+						Posicao origem = ((XadrezPeca)p).getXadrezPosicao().toPosicao();
+						Posicao alvo = new Posicao(i, j);
+						Peca pecaCapturada = makeMove(origem, alvo);
+						boolean testCheck = testCheck(color);
+						undoMove(origem,alvo, pecaCapturada);
+						if (!testCheck) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}	
+
         
     
     //recebe as coordenadas do xadrez e converte para matriz
@@ -112,20 +198,12 @@ public class XadrezPartida {
     }
     //agora posso instanciar as peças ja em posicoes de xadrez chamando a funcao lugarNovaPeca
     private void setupInicial(){
-        lugarNovaPeca('c', 1, new Torre(tabuleiro, Color.WHITE));
-        lugarNovaPeca('c', 2, new Torre(tabuleiro, Color.WHITE));
-        lugarNovaPeca('d', 2, new Torre(tabuleiro, Color.WHITE));
-        lugarNovaPeca('e', 2, new Torre(tabuleiro, Color.WHITE));
-        lugarNovaPeca('e', 1, new Torre(tabuleiro, Color.WHITE));
-        lugarNovaPeca('d', 1, new Rei(tabuleiro, Color.WHITE));
+        lugarNovaPeca('h', 7, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('d', 1, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('e', 1, new Rei(tabuleiro, Color.WHITE));
 
-        lugarNovaPeca('c', 7, new Torre(tabuleiro, Color.BLACK));
-        lugarNovaPeca('c', 8, new Torre(tabuleiro, Color.BLACK));
-        lugarNovaPeca('d', 7, new Torre(tabuleiro, Color.BLACK));
-        lugarNovaPeca('e', 7, new Torre(tabuleiro, Color.BLACK));
-        lugarNovaPeca('e', 8, new Torre(tabuleiro, Color.BLACK));
-        lugarNovaPeca('d', 8, new Rei(tabuleiro, Color.BLACK));
+        lugarNovaPeca('b', 8, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('a', 8, new Rei(tabuleiro, Color.BLACK));
     }
-
     
 }
