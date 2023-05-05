@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import tabuleiroCamada.Peca;
 import tabuleiroCamada.Posicao;
 import tabuleiroCamada.Tabuleiro;
+import xadrezPeca.Bispo;
 import xadrezPeca.Peao;
 import xadrezPeca.Rei;
 import xadrezPeca.Torre;
@@ -202,7 +203,9 @@ public class XadrezPartida {
     //agora posso instanciar as peças ja em posicoes de xadrez chamando a funcao lugarNovaPeca
     private void setupInicial(){
         lugarNovaPeca('a', 1, new Torre(tabuleiro, Color.WHITE));
+        lugarNovaPeca('c', 1, new Bispo(tabuleiro, Color.WHITE));
         lugarNovaPeca('e', 1, new Rei(tabuleiro, Color.WHITE));
+        lugarNovaPeca('f', 1, new Bispo(tabuleiro, Color.WHITE));
         lugarNovaPeca('h', 1, new Torre(tabuleiro, Color.WHITE));
         lugarNovaPeca('a', 2, new Peao(tabuleiro, Color.WHITE));
         lugarNovaPeca('b', 2, new Peao(tabuleiro, Color.WHITE));
@@ -214,7 +217,9 @@ public class XadrezPartida {
         lugarNovaPeca('h', 2, new Peao(tabuleiro, Color.WHITE));
 
         lugarNovaPeca('a', 8, new Torre(tabuleiro, Color.BLACK));
+        lugarNovaPeca('c', 8, new Bispo(tabuleiro, Color.BLACK));
         lugarNovaPeca('e', 8, new Rei(tabuleiro, Color.BLACK));
+        lugarNovaPeca('f', 8, new Bispo(tabuleiro, Color.BLACK));
         lugarNovaPeca('h', 8, new Torre(tabuleiro, Color.BLACK));
         lugarNovaPeca('a', 7, new Peao(tabuleiro, Color.BLACK));
         lugarNovaPeca('b', 7, new Peao(tabuleiro, Color.BLACK));
