@@ -63,7 +63,7 @@ public class Peao extends XadrezPeca {
 			if (getTabuleiro().posicaoExiste(p) && !getTabuleiro().temUmaPeca(p) && getTabuleiro().posicaoExiste(p2) && !getTabuleiro().temUmaPeca(p2) && getMoveCount() == 0) {
 				mat[p.getLinha()][p.getColuna()] = true;
 			}
-			p.setValues(posicao.getLinha() + 1, posicao.getColuna() + 1);
+			p.setValues(posicao.getLinha() + 1, posicao.getColuna() - 1);
 			if (getTabuleiro().posicaoExiste(p) && temPecaOponente(p)) {
 				mat[p.getLinha()][p.getColuna()] = true;
 			}			
