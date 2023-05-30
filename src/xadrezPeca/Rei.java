@@ -76,7 +76,7 @@ public class Rei extends XadrezPeca{
         }
 
         //sudeste
-        p.setValues(posicao.getLinha()-1, posicao.getColuna()+1);
+        p.setValues(posicao.getLinha()+1, posicao.getColuna()+1);
         if(getTabuleiro().posicaoExiste(p) && podeMover(p)){
             mat[p.getLinha()][p.getColuna()] = true;
         }
